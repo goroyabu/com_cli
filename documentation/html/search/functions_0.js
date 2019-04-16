@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['add',['add',['../dd/d5c/structcmdline_1_1oneof__reader.html#af1101d86b057fae4f0dbc5bef1fb7d8c',1,'cmdline::oneof_reader::add()'],['../d8/d16/classcmdline_1_1parser.html#a122aab1fb389f16170397971be1e75b6',1,'cmdline::parser::add(const std::string &amp;name, char short_name=0, const std::string &amp;desc=&quot;&quot;)'],['../d8/d16/classcmdline_1_1parser.html#af97ab18f409599df07146da819c96bae',1,'cmdline::parser::add(const std::string &amp;name, char short_name=0, const std::string &amp;desc=&quot;&quot;, bool need=true, const T def=T())'],['../d8/d16/classcmdline_1_1parser.html#aa6d002a3ef165c240d65c1e87f61a77c',1,'cmdline::parser::add(const std::string &amp;name, char short_name=0, const std::string &amp;desc=&quot;&quot;, bool need=true, const T def=T(), F reader=F())']]]
-];

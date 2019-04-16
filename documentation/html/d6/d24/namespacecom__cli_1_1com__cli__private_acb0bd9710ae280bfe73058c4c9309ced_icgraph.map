@@ -1,6 +1,0 @@
-<map id="com_cli::com_cli_private::get_prompt" name="com_cli::com_cli_private::get_prompt">
-<area shape="rect" id="node2" href="$d0/d70/namespacecom__cli.html#a8da35a612914eba68b9b7683fd275ccc" title="com_cli::read_keyword" alt="" coords="649,5,807,31"/>
-<area shape="rect" id="node3" href="$d6/d24/namespacecom__cli_1_1com__cli__private.html#afbad4a74b20401d693f13ca8328e0e0f" title="com_cli::com_cli_private\l::make_prompt" alt="" coords="220,52,386,91"/>
-<area shape="rect" id="node4" href="$d6/d24/namespacecom__cli_1_1com__cli__private.html#ab97942a3c94e438fc466da3d40533399" title="Get 1 line from interactive interface. " alt="" coords="434,52,601,91"/>
-<area shape="rect" id="node5" href="$d0/d70/namespacecom__cli.html#a80f02f5b877365be3738ff59cd155b5b" title="Read a value from standard input. " alt="" coords="658,59,798,84"/>
-</map>

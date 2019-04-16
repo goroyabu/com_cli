@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d2/d8b/classcmdline_1_1parser_1_1option__base.html" title="cmdline::parser::option_base" alt="" coords="5,51,198,76"/>
-<area shape="rect" id="node2" href="$db/da3/classcmdline_1_1parser_1_1option__with__value.html" title="cmdline::parser::option\l_with_value\&lt; T \&gt;" alt="" coords="246,12,402,51"/>
-<area shape="rect" id="node4" href="$db/d3c/classcmdline_1_1parser_1_1option__without__value.html" title="cmdline::parser::option\l_without_value" alt="" coords="246,75,402,113"/>
-<area shape="rect" id="node3" href="$d0/df1/classcmdline_1_1parser_1_1option__with__value__with__reader.html" title="cmdline::parser::option\l_with_value_with_reader\l\&lt; T, F \&gt;" alt="" coords="450,5,619,57"/>
-</map>

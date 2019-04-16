@@ -1,4 +1,0 @@
-<map id="com_cli::disable_custom_complete" name="com_cli::disable_custom_complete">
-<area shape="rect" id="node2" href="$d6/d24/namespacecom__cli_1_1com__cli__private.html#a7a71c2f9ec35aa0de19c94af11891d04" title="readline用の補完関数. NULLを返すのでデフォルトの補完だけ行う. " alt="" coords="220,5,386,44"/>
-<area shape="rect" id="node3" href="$d0/d70/namespacecom__cli.html#a70d85e5861b17ecbbce7c036ef61e1b4" title="com_cli::end" alt="" coords="434,12,531,37"/>
-</map>
