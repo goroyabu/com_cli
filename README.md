@@ -1,7 +1,12 @@
 # com_cli
 
-## Usage
+## Overview
 
+- Function for command line interface
+- Read a command file (.com)
+- Tab-completion and command-history from GNU Readline
+
+## Usage
 
 ### 1. read_value
 
@@ -20,10 +25,10 @@ If you just press the Enter key, `n` remains 100.
 
 #### for multiple value
 
+#### yes or no
 
 
-
-### 1. read_keyword
+### 2. read_keyword
 
 ```c++
 using namespace std;
@@ -35,12 +40,12 @@ com_cli::read_keyword("What your favourite food ?", table, &ianswer);
 
 Then, 
 
-```bash
+```
 	What your favourite food ?
 	  
 	apple banana chocolate
 	  
-	Select   1 Option
+	CLI: Select   1 Option
   $CLI> 
 ```
 
@@ -61,7 +66,7 @@ com_cli::read_keyword("What food do you want ?", table, nreply, &answer);
 
 Then,
 
-```bash
+```
 	What food do you want ?
 
 	apple banana chocolate durian eel 
@@ -72,16 +77,26 @@ Then,
 
 If you require **exact** `nreply` answer, `nreply` should be **positive**.
 
+## Requirement
+
+- gcc 4.2.1
+- GNU Make 3.81
+- GNU Readline 7.0.5
+
+
 ## Installation
 
-`git clone https://github.com/goroyabu/com_cli`
+First, `git clone https://github.com/goroyabu/com_cli`
 
-First, `make`
+Then, `cd com_cli/`
+
+Then, `make`
 
 Then, `make install`
 
-Now, write `source /path/to/here/this.sh` on ~/.bash_profile
+Now, write `source /path/to/com_cli/this.sh` on ~/.bash_profile
 
+If you want to uninstall, `make uninstall`
 
 ## Documentation
 
@@ -91,4 +106,12 @@ Then, `make`
 
 And, `open toppage.html`
 
-Please read documentation/README.
+Please read [documentation/README](documentation/README.md)
+
+## Licence
+
+
+## Authors
+Goro Yabu 
+
+## References
