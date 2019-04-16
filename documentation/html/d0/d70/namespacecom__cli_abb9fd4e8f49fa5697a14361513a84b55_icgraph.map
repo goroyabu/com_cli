@@ -1,0 +1,7 @@
+<map id="com_cli::erase_endspace" name="com_cli::erase_endspace">
+<area shape="rect" id="node2" href="$d6/d24/namespacecom__cli_1_1com__cli__private.html#afbad4a74b20401d693f13ca8328e0e0f" title="com_cli::com_cli_private\l::make_prompt" alt="" coords="226,5,392,44"/>
+<area shape="rect" id="node6" href="$d6/d24/namespacecom__cli_1_1com__cli__private.html#abe37024db3cfb2b84130aebd09cdce17" title="com_cli::com_cli_private\l::load_command" alt="" coords="226,68,392,107"/>
+<area shape="rect" id="node3" href="$d6/d24/namespacecom__cli_1_1com__cli__private.html#ab97942a3c94e438fc466da3d40533399" title="Get 1 line from interactive interface. " alt="" coords="440,37,607,76"/>
+<area shape="rect" id="node4" href="$d0/d70/namespacecom__cli.html#a80f02f5b877365be3738ff59cd155b5b" title="Read a value from standard input. " alt="" coords="664,19,804,44"/>
+<area shape="rect" id="node5" href="$d0/d70/namespacecom__cli.html#a8da35a612914eba68b9b7683fd275ccc" title="com_cli::read_keyword" alt="" coords="655,68,813,93"/>
+</map>
