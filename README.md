@@ -8,7 +8,15 @@
 
 ## Usage
 
+There are only 3 types of functions in **com_cli**.
+
+1. **read_value** : require to type a value.
+2. **read_keyword** : require to select options in a table.
+3. **init/end** : called the beginning/end of a process.
+
 ### 1. read_value
+
+`read_value` is a function template to require a new value.
 
 ```c++
 int n = 100;
@@ -77,12 +85,42 @@ Then,
 
 If you require **exact** `nreply` answer, `nreply` should be **positive**.
 
+### 3. init / end
+
+Call `init()` before you use com_cli functions.
+Otherwise, the default prompt and the default history file are used.
+("CLI" and ".cli_hist")
+
+Call `end()` after you used com_cli functions.
+Otherwise, command typed in `myapp` are not saved in the history file.
+
+```c++
+//beginning of myapp
+com_cli::init("myapp", "~/.myapp_history");
+
+//some process
+
+//end of myapp
+com_cli::end();
+```
+
+### 4. Read a command file
+
+### 5. Tab-completion and history
+
+
 ## Requirement
 
 - gcc 4.2.1
 - GNU Make 3.81
 - GNU Readline 7.0.5
 
+Option : To produce documentations, 
+
+- graphvis
+- doxygen
+
+All of them can be installed through homebrew.
 
 ## Installation
 

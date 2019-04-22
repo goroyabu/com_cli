@@ -45,8 +45,9 @@ int com_cli::com_cli_private::get_line(std::string quest, std::string* line)
         cout << prompt << *line << endl;
 	ccp::gLineBuffer.erase(ccp::gLineBuffer.begin());
     }else{
-	cout << prompt;
-        *line = readline("");// prompt.c_str() );
+	//cout << prompt;
+        //*line = readline("");// prompt.c_str() );
+	*line = readline( prompt.c_str() );
         add_history(line->c_str());
     }
 

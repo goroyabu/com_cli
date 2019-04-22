@@ -52,6 +52,11 @@ template int com_cli::read_value<int>(std::string quest, int* value);
 template int com_cli::read_value<float>(std::string quest, float* value);
 template int com_cli::read_value<double>(std::string quest, double* value);
 template int com_cli::read_value<std::string>(std::string quest, std::string* value);
+int com_cli::read_text(std::string quest, std::string* text)
+{
+    com_cli_private::get_line(quest, text);
+    return CLI_OK;
+}
 int com_cli::ask_yesno(std::string quest, bool* yes)
 {
     std::string default_answer;
@@ -111,16 +116,19 @@ int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int
     
     com_cli::enable_custom_complete();
     com_cli::set_candidates(table);
-    
+
+    string prompt = ccp::get_prompt();
+    if(prompt.size()!=0) prompt = prompt+": ";
     stringstream ss;    
-    if(nreply<=0) ss << ccp::get_prompt()+":  " << "Select " << setw(3) << -nreply << " or More, Then OK";
-    else ss << ccp::get_prompt()+":  " << "Select " << setw(3) << nreply << " Option";
+    if(nreply<=0) ss << prompt << "Select " << setw(3) << -nreply << " or More, Then OK";
+    else ss << prompt << "Select " << setw(3) << nreply << " Option";
     
     string line; int nwords; vector<string> words;
     while(true){
         line = ""; nwords = 0; words.clear();
 	
-        if( com_cli::show_keyword(quest, table)==com_cli::CLI_NG ) return com_cli::cli_error(2, "com::inquire", "Size of table <= 0");
+        if( com_cli::show_keyword(quest, table)==com_cli::CLI_NG )
+	    return com_cli::cli_error(2, "com_cli::read_keyword", "Size of table <= 0");
 	
         cout << endl; ccp::get_line(ss.str(), &line);
 	ccp::word_split(line, &words);

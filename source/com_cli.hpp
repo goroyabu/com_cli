@@ -30,6 +30,7 @@ namespace com_cli
     template<typename T> int read_value(std::string quest, std::vector<std::string> table, std::vector<T>* value);
     int read_keyword(std::string quest, std::vector<std::string> table, int* answer);
     int read_keyword(std::string quest, std::vector<std::string> table, int nreply, std::vector<int>* answer);
+    int read_text(std::string quest, std::string* text);
     int ask_yesno(std::string quest, bool* yes);
     /* */
     

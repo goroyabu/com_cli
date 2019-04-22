@@ -18,7 +18,7 @@ int com_cli::cli_error(int level, std::string place, std::string message)
 }
 int com_cli::to_upper(std::string* str)
 {
-    std::transform(str->begin(), str->end(), str->begin(), toupper);
+    std::transform(str->begin(), str->end(), str->begin(), ::toupper);
     return CLI_OK;
 }
 int com_cli::to_upper(char* str)
