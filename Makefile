@@ -17,7 +17,7 @@ INCLUDE_DIR := $(TOP_DIR)/include
 CXX = g++
 ROOTCFLAGS = `root-config --cflags --ldflags`
 ROOTGLIBS  = `root-config --glibs`
-CXXFLAGS = $(ROOTCFLAGS) -std=c++11 -MMD -MP
+CXXFLAGS = $(ROOTCFLAGS) -std=c++11 -MMD -MP -o3
 CXXLIBS = $(ROOTGLIBS) -lreadline
 #--------------------------------------------------
 
