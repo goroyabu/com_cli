@@ -33,7 +33,18 @@ namespace com_cli
     int read_text(std::string quest, std::string* text);
     int ask_yesno(std::string quest, bool* yes);
     /* */
+
+    /* Classical Name */
+    /*
+    int CLintrd(std::string quest, int* value);
+    int CLhexrd(std::string quest, int* value);
+    int CLtxtrd(std::string quest, std::string* value);
+    int CMinicom(std::string progname);
+    int CMinquir(std::string quest, int ntable, const std::vector<std::string>& table, const std::vector<std::string>& discript,
+		 int nreply=1, int* answer);
+    */
     
+    /* */
     int find_keyword(const std::vector<std::string>& table, std::string word, int* index);
     int show_keyword(std::string message, const std::vector<std::string>& table);
     

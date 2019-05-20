@@ -4,14 +4,27 @@ namespace com_cli
     namespace com_cli_private
     {
 	std::string gHistoryFile = "~/.cli_history";
-        std::string gPrompt = ">";
+        //std::string gPrompt = ">";
+	std::string gProgName = ">";
 	std::vector<std::string> gLineBuffer;
     }
 }
 namespace ccp = com_cli::com_cli_private;
-std::string com_cli::com_cli_private::get_prompt()
+void com_cli::com_cli_private::set_progname(std::string progname)
 {
-    return gPrompt;
+    gProgName = progname;
+}
+void com_cli::com_cli_private::set_historyfile(std::string historyfile)
+{
+    gHistoryFile = historyfile;
+}
+std::string com_cli::com_cli_private::get_progname()
+{
+    return gProgName;
+}
+std::string com_cli::com_cli_private::get_historyfile()
+{
+    return gHistoryFile;
 }
 /**
    @brief Split a line into each words and output as a vector of strings
@@ -47,7 +60,7 @@ int com_cli::com_cli_private::get_line(std::string quest, std::string* line)
     }else{
 	//cout << prompt;
         //*line = readline("");// prompt.c_str() );
-	*line = readline( prompt.c_str() );
+	*line = (string)readline( prompt.c_str() );
         add_history(line->c_str());
     }
 
@@ -63,8 +76,10 @@ int com_cli::com_cli_private::get_line(std::string quest, std::string* line)
 int com_cli::com_cli_private::make_prompt(std::string quest, std::string answer, std::string* prompt)
 {
     com_cli::erase_endspace(&quest);
+    if(quest=="") { *prompt = " > "; return CLI_OK; }
     if(answer!="") *prompt = " "+quest + " : " + answer + " ? ";
-    else *prompt = " "+quest+"\n"+ccp::get_prompt()+"> ";
+    //else *prompt = " "+quest+"\n"+ccp::get_progname()+"> ";
+    else *prompt = " "+quest+" > ";
     return CLI_OK;
 }
 /*

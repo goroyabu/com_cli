@@ -12,9 +12,12 @@ namespace com_cli
 {
     namespace com_cli_private
     {
-	extern std::string gHistoryFile;
-	extern std::string gPrompt;
-	std::string get_prompt();
+	//extern std::string gHistoryFile;
+	//extern std::string gPrompt;
+	void set_progname(std::string progname);	
+	void set_historyfile(std::string historyfile);
+	std::string get_progname();
+	std::string get_historyfile();
 
 	/* clword.f */
 	int get_word(std::string line, int index, std::string* out);

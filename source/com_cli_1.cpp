@@ -12,10 +12,14 @@
 int com_cli::init(std::string prompt, std::string his_name)
 {
     using namespace com_cli_private;
-    gPrompt = prompt;
+    //gPrompt = prompt;
+    set_progname(prompt);
     using_history();
-    gHistoryFile = his_name;
-    read_history( gHistoryFile.c_str() );
+    //gHistoryFile = his_name;
+    set_historyfile(his_name);
+    read_history( his_name.c_str() );
+    rl_bind_key('\t',rl_complete);
+    
     return CLI_OK;
 }
 /**
@@ -24,7 +28,7 @@ int com_cli::init(std::string prompt, std::string his_name)
 int com_cli::end()
 {
     using namespace com_cli_private;
-    write_history( gHistoryFile.c_str() );
+    write_history( get_historyfile().c_str() );
     return CLI_OK;
 }
 /**
@@ -79,6 +83,7 @@ template<typename T> int com_cli::read_value(std::string quest, std::vector<std:
 {
     using namespace std;
     using namespace com_cli::com_cli_private;
+
     int ntab = (int)table.size();
     int nval = (int)value->size();
     if(nval<=0 || nval!=ntab) return com_cli::CLI_NG;
@@ -113,24 +118,26 @@ int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int
 {
     using namespace std;
     namespace ccp = com_cli::com_cli_private;
-    
+
     com_cli::enable_custom_complete();
     com_cli::set_candidates(table);
-
-    string prompt = ccp::get_prompt();
+    
+    string prompt = ccp::get_progname();
     if(prompt.size()!=0) prompt = prompt+": ";
     stringstream ss;    
     if(nreply<=0) ss << prompt << "Select " << setw(3) << -nreply << " or More, Then OK";
     else ss << prompt << "Select " << setw(3) << nreply << " Option";
+
     
     string line; int nwords; vector<string> words;
-    while(true){
+    while(true){	
         line = ""; nwords = 0; words.clear();
 	
         if( com_cli::show_keyword(quest, table)==com_cli::CLI_NG )
 	    return com_cli::cli_error(2, "com_cli::read_keyword", "Size of table <= 0");
-	
-        cout << endl; ccp::get_line(ss.str(), &line);
+	cout << endl;
+	cout << ss.str() << endl;
+        ccp::get_line("", &line);
 	ccp::word_split(line, &words);
 	
         nwords = (int)words.size();
@@ -140,6 +147,7 @@ int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int
 	
 	com_cli::to_upper(&words[nwords-1]);
         if(nreply<=0 && strcmp(words[nwords-1].c_str(),"OK")==0) break;
+	
         cout << endl;
     }
     

@@ -75,7 +75,7 @@ template int com_cli::set_candidates<const char*, const char*, const char*, cons
 **/
 char** com_cli::com_cli_private::on_function(const char* text, int start, int end)
 {
-    std::string t = text; start = end;//unused
+    //std::string t = text;// start = end;//unused
     return rl_completion_matches(text, word_generator);
 }
 /**
@@ -83,7 +83,7 @@ char** com_cli::com_cli_private::on_function(const char* text, int start, int en
 **/
 char** com_cli::com_cli_private::off_function(const char* text, int start, int end)
 {
-    std::string t = text; start = end;//unused
+    //std::string t = text;// start = end;//unused
     return NULL;
 }
 /**
@@ -94,7 +94,7 @@ char* com_cli::com_cli_private::word_generator(const char* text, int state)
     using namespace std;
     static int index, wordlen;
     char* name;
-    
+
     if(state == 0){
         wordlen = strlen(text);
         index = 0;
@@ -115,5 +115,6 @@ char* com_cli::com_cli_private::word_generator(const char* text, int state)
             return strdup(name);
         }
     }
+
     return NULL;
 }
