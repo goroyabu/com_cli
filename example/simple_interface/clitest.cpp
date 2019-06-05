@@ -72,6 +72,10 @@ int main()
     //test_read_value2();//read several strings with custom complete
     //test_read_keyword();
     //test_read_keyword2();
+
+    string name = "i am ironman";
+    read_text("who are you ?", &name);
+    cout << name << endl;
     
     what_your_name();
     how_old_are_you();

@@ -6,20 +6,16 @@
 **/
 #include "com_cli.hpp"
 #include "com_cli_private.hpp"
+namespace ccp = com_cli::com_cli_private;
 /** 
     @brief Initialization
 **/
-int com_cli::init(std::string prompt, std::string his_name)
+int com_cli::init(std::string progname, std::string his_name)
 {
-    using namespace com_cli_private;
-    //gPrompt = prompt;
-    set_progname(prompt);
+    ccp::set_progname( progname );
     using_history();
-    //gHistoryFile = his_name;
-    set_historyfile(his_name);
+    ccp::set_historyfile( his_name );
     read_history( his_name.c_str() );
-    rl_bind_key('\t',rl_complete);
-    
     return CLI_OK;
 }
 /**
@@ -27,8 +23,7 @@ int com_cli::init(std::string prompt, std::string his_name)
 **/
 int com_cli::end()
 {
-    using namespace com_cli_private;
-    write_history( get_historyfile().c_str() );
+    write_history( ccp::get_historyfile().c_str() );
     return CLI_OK;
 }
 /**
@@ -38,16 +33,17 @@ int com_cli::end()
 **/
 template<typename T> int com_cli::read_value(std::string quest, T* value)
 {
+    using namespace std;
     T buf = *value;
-    std::stringstream ss; ss << *value;
-    std::string line = ss.str();
+    stringstream ss; ss << *value;
+    string line = ss.str();
     
-    com_cli::com_cli_private::get_line(quest, &line);
+    ccp::get_line(quest, &line);
     try{
-	std::istringstream(line) >> *value;
+	istringstream(line) >> *value;
 	return CLI_OK;
     }
-    catch(std::exception &e){
+    catch(exception &e){
 	*value = buf;
 	return CLI_NG;
     }
@@ -58,7 +54,7 @@ template int com_cli::read_value<double>(std::string quest, double* value);
 template int com_cli::read_value<std::string>(std::string quest, std::string* value);
 int com_cli::read_text(std::string quest, std::string* text)
 {
-    com_cli_private::get_line(quest, text);
+    ccp::get_line(quest, text);
     return CLI_OK;
 }
 int com_cli::ask_yesno(std::string quest, bool* yes)
@@ -117,7 +113,6 @@ int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int
 int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int nreply, std::vector<int>* answer)
 {
     using namespace std;
-    namespace ccp = com_cli::com_cli_private;
 
     com_cli::enable_custom_complete();
     com_cli::set_candidates(table);

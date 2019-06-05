@@ -6,9 +6,9 @@ TARGET = clitest
 ROOTCFLAGS = `root-config --cflags`
 ROOTGLIBS  = `root-config --libs`
 
-CXX = g++
-CXXFLAGS = -O3 -W -Wall ${ROOTCFLAGS}
-CXXLIBS = ${ROOTGLIBS} -lm -lCOMCLI
+CXX = g++-9
+CXXFLAGS = -W -Wall
+CXXLIBS = -lm -lCOMCLI
 
 all : ${TARGET} 
 

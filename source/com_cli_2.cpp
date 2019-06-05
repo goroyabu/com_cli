@@ -26,7 +26,7 @@ int com_cli::disable_custom_complete()
     rl_attempted_completion_function = com_cli_private::off_function;
     return CLI_OK;
 }
-int com_cli::set_candidates(std::vector<std::string> list)
+int com_cli::set_candidates(const std::vector<std::string>& list)
 {
     using namespace std;
     ccp::gCandidates.clear();

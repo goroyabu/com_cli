@@ -2,6 +2,7 @@
    @file cmdline.hpp
    @author https://tanakh.hatenablog.com/entries/2009/10/28
    @date 2019/04/13 Change the name of this file cmdline.h -> cmdline.hpp by Goro Yabu
+   @date 2019/05/23 Add global functions add_option, exits_option, get_option, parse_check, set_program_name for simple access.
 
    @detail Copyright (c) 2009, Hideyuki Tanaka
    All rights reserved.
@@ -530,19 +531,19 @@ public:
 
   void parse_check(const std::string &arg){
     if (!options.count("help"))
-      add("help", '?', "print this message");
+      add("help", '?', "Print this message and exit.");
     check(0, parse(arg));
   }
 
   void parse_check(const std::vector<std::string> &args){
     if (!options.count("help"))
-      add("help", '?', "print this message");
+      add("help", '?', "Print this message and exit.");
     check(args.size(), parse(args));
   }
 
   void parse_check(int argc, char *argv[]){
     if (!options.count("help"))
-      add("help", '?', "print this message");
+      add("help", '?', "Print this message and exit.");
     check(argc, parse(argc, argv));
   }
 
@@ -559,14 +560,14 @@ public:
 
   std::string usage() const {
     std::ostringstream oss;
-    oss<<"usage: "<<prog_name<<" ";
+    oss<<"Usage: "<<prog_name<<" ";
     for (size_t i=0; i<ordered.size(); i++){
       if (ordered[i]->must())
         oss<<ordered[i]->short_description()<<" ";
     }
     
     oss<<"[options] ... "<<ftr<<std::endl;
-    oss<<"options:"<<std::endl;
+    oss<<"Options:"<<std::endl;
 
     size_t max_width=0;
     for (size_t i=0; i<ordered.size(); i++){
@@ -810,4 +811,57 @@ private:
   std::vector<std::string> errors;
 };
 
+parser global_parser;
+
+/**
+   @function add_option
+   @brief Add a option without a value.
+**/
+void add_option(const std::string &name, char short_name=0,
+		const std::string &desc="")
+{
+    global_parser.add(name, short_name, desc);
+}
+/**
+   @function add_option<T>
+   @brief Add a option with a value of T.
+**/
+template<class T> void add_option(const std::string &name, char short_name=0,
+				  const std::string &desc="", bool need=true,
+				  const T def=T())
+{
+    global_parser.add(name, short_name, desc, need, def, default_reader<T>());
+}
+/**
+   @function exist_option
+   @brief Return true or false if the option named `name` exists.
+**/
+bool exist_option(const std::string &name)
+{
+    return global_parser.exist(name);
+}
+/**
+   @function get_option<T>
+   @brief Return the value of the option named `name`.
+**/
+template<class T> const T& get_option(const std::string& name)
+{
+    return global_parser.get<T>(name);
+}
+/**
+   @function parse_check
+**/
+void parse_check(int argc, char*argv[])
+{
+    global_parser.parse_check(argc, argv);
+}
+/**
+   @function set_program_name
+   @brief Set the name of program shown in the help message.
+**/    
+void set_program_name(const std::string& name)
+{
+    global_parser.set_program_name(name);
+}
+    
 } // cmdline

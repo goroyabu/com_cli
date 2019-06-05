@@ -14,11 +14,15 @@ INCLUDE_DIR := $(TOP_DIR)/include
 
 #--------------------------------------------------
 
-CXX = g++
-ROOTCFLAGS = `root-config --cflags --ldflags`
-ROOTGLIBS  = `root-config --glibs`
-CXXFLAGS = $(ROOTCFLAGS) -std=c++11 -MMD -MP -o3
-CXXLIBS = $(ROOTGLIBS) -lreadline
+CXX = g++-9
+#ROOTCFLAGS = -I/usr/local/Cellar/root/6.16.00_3/include/root
+#`root-config --incdir`
+#ROOTCFLAGS = `root-config --cflags --ldflags`
+#ROOTGLIBS  = `root-config --glibs`
+#ROOTGLIBS  = 
+CXXFLAGS = -MMD -MP
+#-std=c++11 -MMD -MP -o3
+CXXLIBS = -lreadline
 #--------------------------------------------------
 
 app = $(addprefix $(BUILD_DIR)/,$(APP))
