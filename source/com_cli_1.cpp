@@ -1,14 +1,23 @@
 /**
    @file com_cli_1.cpp
-   @author Goro Yabu                                                                                                                      
-   @date 2019/03/18                                                                                                                    
-   @version 2.0                                                                                                                        
+   @author Goro Yabu
+   @date 2019/03/18
+   @version 2.0
 **/
 #include "com_cli.hpp"
 #include "com_cli_private.hpp"
+
+#include <sstream>
+#include <iomanip>
+#include <cstring>
+#include <iostream>
+
+#include <readline/readline.h>
+#include <readline/history.h>
+
 namespace ccp = com_cli::com_cli_private;
-/** 
-    @brief Initialization
+/**
+   @brief Initialization
 **/
 int com_cli::init(std::string progname, std::string his_name)
 {
@@ -19,7 +28,7 @@ int com_cli::init(std::string progname, std::string his_name)
     return CLI_OK;
 }
 /**
-   @brief 
+   @brief
 **/
 int com_cli::end()
 {
@@ -30,6 +39,14 @@ int com_cli::end()
    @brief Read a value from standard input.
    @param[in] quest Question or description of value for app users.
    @param[in,out] value A variable modifed to new input value.
+   
+   @details In the source code,
+   @code
+   int n = 100;
+   com_cli::read_value<int>("number of event", &n);
+   @endcode
+   
+   Then,
 **/
 template<typename T> int com_cli::read_value(std::string quest, T* value)
 {
@@ -57,6 +74,9 @@ int com_cli::read_text(std::string quest, std::string* text)
     ccp::get_line(quest, text);
     return CLI_OK;
 }
+/**
+   @brief Ask the question and 'yes' is modified into true when typed "yes" or false for "no".
+**/
 int com_cli::ask_yesno(std::string quest, bool* yes)
 {
     std::string default_answer;
@@ -74,28 +94,30 @@ int com_cli::ask_yesno(std::string quest, bool* yes)
     
     return CLI_OK;
 }
-
 template<typename T> int com_cli::read_value(std::string quest, std::vector<std::string> table, std::vector<T>* value)
 {
     using namespace std;
     using namespace com_cli::com_cli_private;
-
+    
     int ntab = (int)table.size();
     int nval = (int)value->size();
     if(nval<=0 || nval!=ntab) return com_cli::CLI_NG;
     cout << " " << quest << endl;
     cout << endl;
-
+    
     for(int i=0; i<nval; ++i){
         read_value<T>(table[i], &(*value)[i]);
     }
     return com_cli::CLI_OK;
 }
 template int com_cli::read_value<int>(std::string quest, std::vector<std::string> table, std::vector<int>* value);
+template int com_cli::read_value<short int>(std::string quest, std::vector<std::string> table, std::vector<short int>* value);
+template int com_cli::read_value<unsigned int>(std::string quest, std::vector<std::string> table, std::vector<unsigned int>* value);
+template int com_cli::read_value<unsigned short int>(std::string quest, std::vector<std::string> table, std::vector<unsigned short int>* value);
+template int com_cli::read_value<long int>(std::string quest, std::vector<std::string> table, std::vector<long int>* value);
 template int com_cli::read_value<float>(std::string quest, std::vector<std::string> table, std::vector<float>* value);
 template int com_cli::read_value<double>(std::string quest, std::vector<std::string> table, std::vector<double>* value);
 template int com_cli::read_value<std::string>(std::string quest, std::vector<std::string> table, std::vector<std::string>* value);
-
 int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int* answer)
 {
     std::vector<int> vanswer(1, *answer); int nreply = 1;
@@ -113,19 +135,19 @@ int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int
 int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int nreply, std::vector<int>* answer)
 {
     using namespace std;
-
+    
     com_cli::enable_custom_complete();
     com_cli::set_candidates(table);
     
     string prompt = ccp::get_progname();
     if(prompt.size()!=0) prompt = prompt+": ";
-    stringstream ss;    
+    stringstream ss;
     if(nreply<=0) ss << prompt << "Select " << setw(3) << -nreply << " or More, Then OK";
     else ss << prompt << "Select " << setw(3) << nreply << " Option";
-
+    
     
     string line; int nwords; vector<string> words;
-    while(true){	
+    while(true){
         line = ""; nwords = 0; words.clear();
 	
         if( com_cli::show_keyword(quest, table)==com_cli::CLI_NG )
@@ -159,7 +181,7 @@ int com_cli::read_keyword(std::string quest, std::vector<std::string> table, int
 int com_cli::find_keyword(const std::vector<std::string>& table, std::string word, int* index)
 {
     std::string elem_up = word; com_cli::to_upper(&elem_up);
-    int ntab = table.size(); *index = ntab;    
+    int ntab = table.size(); *index = ntab;
     for(int i=0; i<ntab; ++i){
         std::string buf = table[i]; com_cli::to_upper(&buf);
         if( strcmp(elem_up.c_str(),buf.c_str())==0 ){ *index = i; return CLI_OK; }

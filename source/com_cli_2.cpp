@@ -7,6 +7,13 @@
 #include "com_cli.hpp"
 #include "com_cli_private.hpp"
 
+#include <vector>
+#include <string>
+#include <cstring>
+
+#include <readline/readline.h>
+#include <readline/history.h>
+
 namespace com_cli
 {
     namespace com_cli_private
@@ -73,7 +80,7 @@ template int com_cli::set_candidates<const char*, const char*, const char*, cons
 @brief readline用の補完関数
 @param text インターフェイスから読み込んだ文字列(たぶん)
 **/
-char** com_cli::com_cli_private::on_function(const char* text, int start, int end)
+char** com_cli::com_cli_private::on_function(const char* text, [[maybe_unused]] int start, [[maybe_unused]] int end)
 {
     //std::string t = text;// start = end;//unused
     return rl_completion_matches(text, word_generator);
@@ -81,7 +88,7 @@ char** com_cli::com_cli_private::on_function(const char* text, int start, int en
 /**
    @brief readline用の補完関数. NULLを返すのでデフォルトの補完だけ行う.
 **/
-char** com_cli::com_cli_private::off_function(const char* text, int start, int end)
+char** com_cli::com_cli_private::off_function([[maybe_unused]] const char* text, [[maybe_unused]] int start, [[maybe_unused]] int end)
 {
     //std::string t = text;// start = end;//unused
     return NULL;

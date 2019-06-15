@@ -1,9 +1,18 @@
 /**
+   @file com_cli_3.cpp
+   @author Goro Yabu
    @date 2019/03/18
    @version 2.0
 **/
 #include "com_cli.hpp"
 #include "com_cli_private.hpp"
+
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <cstring>
+#include <iostream>
+
 int com_cli::cli_error(int level, std::string place, std::string message)
 {
     if(level==0){
@@ -43,8 +52,7 @@ int com_cli::remove_comment(std::string* str, std::string sign)
 }
 int com_cli::is_only_integer(std::string& str)
 {
-    int n = 0;
-    try { n = std::stoi(str); }
+    try { [[maybe_unused]] int n = std::stoi(str); }
     catch (std::exception &e) { return CLI_NG; }
     return CLI_OK;
 }

@@ -1,10 +1,25 @@
+/**
+   @file com_cli_private.cpp
+   @author Goro Yabu
+   @date 2019/06/13
+   @version 2.0
+**/
 #include "com_cli_private.hpp"
+
+#include <vector>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+
+#include <readline/readline.h>
+#include <readline/history.h>
+
 namespace com_cli
 {
     namespace com_cli_private
     {
 	std::string gHistoryFile = "~/.cli_history";
-        //std::string gPrompt = ">";
 	std::string gProgName = ">";
 	std::vector<std::string> gLineBuffer;
     }
@@ -30,7 +45,7 @@ std::string com_cli::com_cli_private::get_historyfile()
    @brief Split a line into each words and output as a vector of strings
    @param[in] line Input string
    @param[out] out A vector of words in the line
-   @param[in] delim Default delimitator is space 
+   @param[in] delim Default delimitator is space
 **/
 int com_cli::com_cli_private::word_split(std::string line, std::vector<std::string>* out, std::string delim)
 {

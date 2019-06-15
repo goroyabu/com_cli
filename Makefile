@@ -14,7 +14,7 @@ INCLUDE_DIR := $(TOP_DIR)/include
 
 #--------------------------------------------------
 
-CXX = g++-9
+CXX = g++ -std=c++17 -Wall -Wextra
 #ROOTCFLAGS = -I/usr/local/Cellar/root/6.16.00_3/include/root
 #`root-config --incdir`
 #ROOTCFLAGS = `root-config --cflags --ldflags`
@@ -32,7 +32,7 @@ installed_app = $(subst $(BUILD_DIR),$(BIN_DIR),$(app))
 installed_lib = $(subst $(BUILD_DIR),$(LIB_DIR),$(lib))
 
 main :=
-headers := $(shell find $(SOURCE_DIR) -name "*.hpp")
+headers := $(shell find $(SOURCE_DIR) -name "*.hpp") $(shell find $(SOURCE_DIR) -name "*.h")
 source_dirs := $(shell find $(SOURCE_DIR) -type d)
 sources = $(foreach dir, $(source_dirs), $(wildcard $(dir)/*.cpp))
 
@@ -53,7 +53,7 @@ endif
 ifneq ($(LIB),)
 	mkdir -p $(LIB_DIR)
 	install $(lib) $(LIB_DIR)/
-	$(foreach temp, $(installed_lib), $(shell echo install_name_tool -id $(temp) $(temp)))
+	#$(foreach temp, $(installed_lib), $(shell echo install_name_tool -id $(temp) $(temp)))
 endif
 
 $(BUILD_DIR) :

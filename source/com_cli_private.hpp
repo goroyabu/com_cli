@@ -6,14 +6,16 @@
 **/
 #ifndef com_cli_private_hpp
 #define com_cli_private_hpp
+
 #include "com_cli.hpp"
+
+#include <vector>
+#include <string>
 
 namespace com_cli
 {
     namespace com_cli_private
     {
-	//extern std::string gHistoryFile;
-	//extern std::string gPrompt;
 	void set_progname(std::string progname);	
 	void set_historyfile(std::string historyfile);
 	std::string get_progname();
@@ -31,12 +33,8 @@ namespace com_cli
 	/* readline custom completion */
         char** on_function(const char* text, int start, int end);
         char** off_function(const char* text, int start, int end);
-        char* word_generator(const char* text, int state);
-	
+        char* word_generator(const char* text, int state);	
     }
-    
 }
-
-
 #endif
 

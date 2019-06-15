@@ -3,7 +3,8 @@
 ## Overview
 
 com_cli は コマンドラインによる対話型インターフェースを提供する C++ 用ライブラリです。
-以下は com_cli の特長です。仕様の詳細は Documentation をご覧ください。( Python 用ラッパー関数もそのうち書くかも。)
+以下は com_cli の特長です。仕様の詳細は Documentation をご覧ください。
+( Python 用ラッパー関数もそのうち書くかも。)
 
 ### 1. コマンドラインインターフェース用の関数群
 
@@ -16,7 +17,7 @@ int n = 100;
 com_cli::read_value<int>("number of event", &n); 
 ```
 
-とすると、
+を実行すると、
 
 ```shell-session
 	$ number of event : 100 ?  
@@ -24,23 +25,27 @@ com_cli::read_value<int>("number of event", &n);
 
 となり、ここで入力した値が、変数`n`に格納されます。
 
+#### Point : 
 - 入力時は、GNU Readline のタブ補完とヒストリー機能を利用できます。
 - 特にカスタムタブ補完をとても簡単に設定することが可能です。
 - CLintrd, CLkeyrd 等、過去の関数との互換性を持ちます。
+- 詳しくは Functions をご覧ください。
 
 ### 2. スクリプト読み込みとコマンドの実行
 
-com_cli を使ったプログラムを利用するユーザーは、入力内容を記述したスクリプト(.com)を読み込ませることで同じ内容を何度も入力する手間を省くことができます。
+com_cli を使ったプログラムを利用するユーザーは、入力内容を記述したスクリプト(.com)を読み込ませることで同じ内容を毎回入力する手間を省くことができます。
 
 ```
     CLI> @my_process.com
 ```
 
+### 3. コマンドライン引数パーサ
 
+説明
 
 ## Installation
 
-### Requirements
+### 1. Requirements
 com_cliの依存関係は以下の通りです。
 Mac OS X El Capitan, High Sierra, Mojaveでは動作確認しています。
 Linuxは駄目かも。
@@ -57,7 +62,7 @@ brew install readline
 ```
 
 
-### Installation & Setup
+### 2. Installation & Setup
 インストールは任意のディレクトリ下($HOME/soft/等)で、以下の通りに行ってください。
 
 ```
@@ -74,7 +79,7 @@ source $HOME/soft/com_cli/this.sh
  
 If you want to uninstall, `make uninstall`
 
-## Usage
+## Functions
 
 よく使う関数の使い方を以下に示します。
 
@@ -188,13 +193,9 @@ Call `end()` after you used com_cli functions.
 Otherwise, command typed in `myapp` are not saved in the history file.
 
 
-### 4. Read a command file
+## Read Command Files
 
-
-### 5. Tab-completion and history
-
-
-
+説明
 
 
 ## Documentation

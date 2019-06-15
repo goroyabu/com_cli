@@ -1,13 +1,13 @@
 # @file Makefile
 # @date 2019/01/11
 # @brief 1ファイル1app用のMakefile. sample.cpp(main関数含む)を./sampleにする. TARGETに列挙すればいい
-TARGET = clitest
+TARGET = test classic_test
 
 ROOTCFLAGS = `root-config --cflags`
 ROOTGLIBS  = `root-config --libs`
 
 CXX = g++
-CXXFLAGS = -W -Wall
+CXXFLAGS = -W -Wall -Wextra
 CXXLIBS = -lm -lCOMCLI
 
 all : ${TARGET} 

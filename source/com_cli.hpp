@@ -9,16 +9,6 @@
 
 #include <vector>
 #include <string>
-#include <cstring>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <iomanip>
-#include <stdexcept>
-#include <algorithm>
-
-#include <readline/readline.h>
-#include <readline/history.h>
 
 namespace com_cli
 {
@@ -64,41 +54,5 @@ namespace com_cli
     int disable_custom_complete();
     template<typename... Arg> int set_candidates(Arg... arg);
     int set_candidates(const std::vector<std::string>& list);
-
-    /*--------------------*/
-    
-    /**
-       Classical Name 
-    **/
-
-    /* CLI */
-    template <typename T>
-    void CLread(const std::string& text, T* ptr);
-    void CLintrd(char *prompt, int *value);
-    void CLintrdL(char *prompt, int *value, int lower, int upper);
-    void CLintrdX(char *prompt, int *value, char *text, int text_size);
-    void CLhexrd(char *prompt, int *value);
-    void CLhexrdL(char *prompt, int *value, int lower, int upper);
-    void CLhexrdX(char *prompt, int *value, char *text, int text_size);
-    void CLfltrd(char *prompt, float *value);
-    void CLfltrdL(char *prompt, float *value, double lo, double hi);
-    void CLfltrdX(char *prompt, float *value, char *text, int text_size);
-    void CLfdprd(char *prompt, double *value);
-    void CLfdprdL(char *prompt, double *value, double lower, double upper);
-    void CLfdprdX(char *prompt, double *value, char *text, int text_size);
-    void CLtxtrd(char *prompt, char *text, int text_size);
-    void CLtitrd(char *prompt, char *text, int text_size);
-    void CLlogrd(char *prompt, int *value);
-    void CLkeyrd(int mode, char *prompt, char *word, char **table, int ntable, int *choice, int word_size);
-
-    /* COM */
-    void CMchval(char *quest, int nval, char *names[], char *help[], char *vartyp, void *array);
-    void CMinicom(char *prompt);
-    void CMcrange(char *quest, int nval, char *names[], char *help[], char *vartyp, void *array);
-    void CMinquir(char *quest, int nval, char *names[], char *help[], int nreply, int lord[]);
-    void CMmodbit(char *quest, int nbits, char *names[], char *help[], int *bits);
-    void CMmodval(char *quest, int nval, char *names[], char *help[], char *vartyp, void *array);
-    void CMshowit(char *quest, int nval, char *names[], char *help[]);
-    void CMswitch(char *quest, int nval, char *names[], char *help[], char *vartyp, int array[]);
-}
+}   
 #endif
