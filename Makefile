@@ -14,14 +14,8 @@ INCLUDE_DIR := $(TOP_DIR)/include
 
 #--------------------------------------------------
 
-CXX = g++ -std=c++17 -Wall -Wextra
-#ROOTCFLAGS = -I/usr/local/Cellar/root/6.16.00_3/include/root
-#`root-config --incdir`
-#ROOTCFLAGS = `root-config --cflags --ldflags`
-#ROOTGLIBS  = `root-config --glibs`
-#ROOTGLIBS  = 
-CXXFLAGS = -MMD -MP
-#-std=c++11 -MMD -MP -o3
+CXX = g++
+CXXFLAGS = -MMD -MP -std=c++17 -Wall -Wextra
 CXXLIBS = -lreadline
 #--------------------------------------------------
 
@@ -43,17 +37,47 @@ dependency := $(objects:.o=.d)
 include_flag := $(addprefix -I,$(source_dirs))
 #--------------------------------------------------
 
-all : $(BUILD_DIR) $(target)
+.PHONY : help
+help : ## Print this message.
+	@echo "Usage: make [options] [target] ..."
+	@echo "Targets:"
+	@grep -Eh '^[a-zA-Z_-]+ : .*?## .*$$' $(MAKEFILE_LIST) | sort | awk -F'[:##]' '{printf "  \033[0m%-25s\033[0m %s\n", $$1, $$4}'
+
+.PHONY : show-structure
+show-structure : ## Print the directory structure of this makefile.
+	@echo "Directories:"
+	@printf "./  %-25s%s\n" "" "This makefile is here."
+	@printf "|-- %-25s%s\n" "source/" "All of C++ files in here will be compiled into object files."
+	@printf "|   %-25s%s\n" "|-- src.hpp" ""
+	@printf "|   %-25s%s\n" "|-- src.cpp" ""
+	@printf "|   %-25s%s\n" "'-- subsrc/" "Files in the sub-directories of 'source' "
+	@printf "|   %-25s%s\n" "    |-- sub_src.h" 
+	@printf "|   %-25s%s\n" "    '-- sub_src.cpp" 
+	@printf "|-- %-25s%s\n" "build/" ""
+	@printf "|   %-25s%s\n" "|-- src.o" ""
+	@printf "|   %-25s%s\n" "'-- subsrc/"
+	@printf "|   %-25s%s\n" "    '-- sub_src.o"
+	@printf "|-- %-25s%s\n" "include/" "The symbolic links of headers are created here."
+	@printf "|   %-25s%s\n" "|-- src.hpp@ -> path/to/here/source/src.hpp" ""
+	@printf "|   %-25s%s\n" "'-- sub_src.h@ -> path/to/here/source/subsrc/sub_src.h" ""
+	@printf "|-- %-25s%s\n" "bin/" "The app is installed here."
+	@printf "|   %-25s%s\n" "'-- app4example" ""
+	@printf "'-- %-25s%s\n" "lib/" "The library is installed here."
+	@printf "    %-25s%s\n" "'-- libSAMPLE.so" ""
+
+all : $(BUILD_DIR) $(target) ## Find and compile all of the C++ files in the 'source' directory.
 
 .PHONY : install
-install : $(target)
+install : $(target) ## Install the app or the library into the install directories, 'bin' or 'lib'.
 ifneq ($(APP),)
 	mkdir -p $(BIN_DIR); install $(app) $(BIN_DIR)/
 endif
 ifneq ($(LIB),)
 	mkdir -p $(LIB_DIR)
 	install $(lib) $(LIB_DIR)/
-	#$(foreach temp, $(installed_lib), $(shell echo install_name_tool -id $(temp) $(temp)))
+ifeq ($(shell uname), Darwin)
+	$(foreach temp, $(installed_lib), $(shell echo install_name_tool -id $(temp) $(temp)))
+endif
 endif
 
 $(BUILD_DIR) :
@@ -70,25 +94,28 @@ ${lib} : ${objects} ${dictionary_obj}
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	@echo $@
 	@if [ ! -e `dirname $@` ]; then mkdir -p `dirname $@`; fi
-	$(CXX) $(CXXFLAGS) $(include_flag) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(include_flag) -fPIC -o $@ -c $<
 
 .PHONY : clean
-clean :
+clean : ## Delete the targets and the objects in the 'build' directory.
 	rm -rf *~ $(BUILD_DIR)/* $(target)
 
-.PHONY : cleanall
-cleanall :
+.PHONY : cleanup
+cleanup : ## Delete the directories made at the compilation, 'build', 'bin', 'lib' and 'include'.
 	rm -rf $(BUILD_DIR) $(BIN_DIR) $(LIB_DIR) $(INCLUDE_DIR)
 
-.PHONY : uninstall
-uninstall :
+.PHONY : uninstall 
+uninstall : ## Uninstall the app or the lib from the install directories.
 	rm $(installed_app) $(installed_lib)
 
-.PHONY : show
-show :
-	@echo $(sources)
-	@echo $(objects)
-	@echo $(headers)
+.PHONY : show-files
+show-files : ## Print all of the sources, objects and headers.
+	@echo "Sources:"
+	@$(foreach temp, $(sources), echo "  "$(temp);)
+	@echo "Objects:"
+	@$(foreach temp, $(objects), echo "  "$(temp);)
+	@echo "Headers:"
+	@$(foreach temp, $(headers), echo "  "$(temp);)
 #--------------------------------------------------
 
 -include $(dependency)
