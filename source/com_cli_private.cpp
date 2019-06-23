@@ -76,6 +76,8 @@ int com_cli::com_cli_private::get_line(std::string quest, std::string* line)
 	//cout << prompt;
         //*line = readline("");// prompt.c_str() );
 	*line = (string)readline( prompt.c_str() );
+	com_cli::remove_comment(line);
+	com_cli::erase_endspace(line);
         add_history(line->c_str());
     }
 

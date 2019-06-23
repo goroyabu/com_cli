@@ -358,7 +358,10 @@ public:
   void set_program_name(const std::string &name){
     prog_name=name;
   }
-
+  std::string get_program_name(){
+      return prog_name;
+  }
+    
   bool exist(const std::string &name) const {
     if (options.count(name)==0) throw cmdline_error("there is no flag: --"+name);
     return options.find(name)->second->has_set();
@@ -566,7 +569,7 @@ public:
         oss<<ordered[i]->short_description()<<" ";
     }
     
-    oss<<"[options] ... "<<ftr<<std::endl;
+    oss<<"[options] "<<ftr<<" "<<std::endl;
     oss<<"Options:"<<std::endl;
 
     size_t max_width=0;
@@ -863,5 +866,30 @@ void set_program_name(const std::string& name)
 {
     global_parser.set_program_name(name);
 }
-    
+std::string get_program_name()
+{
+    return global_parser.get_program_name();
+}
+
+const std::vector<std::string> &get_args()
+{
+    return global_parser.rest();
+}
+
+void set_args_name(std::string args)
+{
+    global_parser.footer(args);
+}
+
+int print_usage()
+{
+    std::cerr<<global_parser.usage();
+    return 0;
+}
+int print_error_usage()
+{
+    std::cerr<<global_parser.error()<<std::endl<<global_parser.usage();
+    return -1;
+}
+
 } // cmdline
