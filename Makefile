@@ -15,8 +15,7 @@ INCLUDE_DIR := $(TOP_DIR)/include
 #--------------------------------------------------
 
 CXX = g++
-CXXFLAGS = -MMD -MP -Wall -Wextra
-#-std=c++1z 
+CXXFLAGS = -MMD -MP -Wall -Wextra -std=c++1z 
 CXXLIBS = -lreadline
 #--------------------------------------------------
 
